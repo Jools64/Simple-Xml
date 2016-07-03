@@ -4,7 +4,7 @@ A small and very simple to use C library for reading XML files. Can be used simp
 # Usage
 This library is still work in progress and I'd currently not really recommend using it as it lacks some features and has barely been tested. I am likely to change the signatures of some functions in future versions once I've given more thought to the usage of the library so don't expect forward compatibility. It should however function fine for simple applications if you don't mind it's use of the standard library. (Just stdio.h, stdlib.h and string.h)
 
-To add the library to a project simply include the header file: "xmlReader.h". You can then use the following functions:
+To add the library to a project simply include the header file: "simple-xml.h". You can then use the following functions:
 
 Note:
 Currently comments and CDATA tags are not supported by the library. I will implement these at some later point in time. The library refers to a single tag/element as a node. Properties of that element/tag are refered to as attributes. e.g. <node attribute="value"></node>
