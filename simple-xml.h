@@ -42,9 +42,9 @@
 #include "stdio.h"
 #include "string.h"
 
-#define clamp(value, min, max) value < min ? min : value > max ? max : value
-#define min(a, b) a < b ? a : b
-#define assert(expression, output) if(!(expression)){printf("ASSERTION FAILED: " output "\n\n");abort();}
+#define xmlClamp(value, xmlMin, max) value < xmlMin ? xmlMin : value > max ? max : value
+#define xmlMin(a, b) a < b ? a : b
+#define xmlAssert(expression, output) if(!(expression)){printf("ASSERTION FAILED: " output "\n\n");abort();}
 
 //------------------------------------------------------------------------------
 // HEADER
@@ -148,7 +148,7 @@ void xmlAllocatorFree(XmlAllocatorBlock* a)
 
 void* xmlAllocatorAllocate(XmlAllocatorBlock* a, int size)
 {
-    assert(size <= a->size, "Attempted to allocate an amount of memory that is \
+    xmlAssert(size <= a->size, "Attempted to allocate an amount of memory that is \
 greater than the size of single block");
     
     if(a->size - a->offset >= size)
@@ -188,7 +188,7 @@ unsigned char xmlDocumentGetNextCharInternal(XmlDocument* d, char* dest)
         {
             d->firstRead = 0;
             d->bufferContentLength = fread(d->buffer, 1, 
-                                           clamp((d->length - d->documentPosition), 
+                                           xmlClamp((d->length - d->documentPosition), 
                                                  0, XML_DOCUMENT_BUFFER_SIZE), 
                                            d->file);
             
@@ -751,7 +751,7 @@ void xmlStringBufferAppend(XmlStringBuffer* b, char* string, int count)
     else if(count + b->length < b->size)
     {
         b->length += count;
-        strncat(b->data, string, min(count, b->size - b->length));
+        strncat(b->data, string, xmlMin(count, b->size - b->length));
     }
     else
     {
@@ -804,9 +804,3 @@ void xmlStringBufferClear(XmlStringBuffer* b)
         i->data[0] = 0;
     }
 }
-
-
-
-
-
-
