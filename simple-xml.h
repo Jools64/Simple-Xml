@@ -3,6 +3,9 @@
     
     - Handle comments
     - Handle CDATA tags
+    - Handle allocations larger than XML_ALLOCATOR_BLOCK_SIZE
+        (Initialize a new XmlAllocatorBlock that is big enough to handle
+         the large allocation)
     
     Finalization:
     - Make methods static or "internal" that do not need to be exposed
@@ -52,7 +55,7 @@
 
 #define TEXT_BUFFER_BLOCK_SIZE 1024 * 2
 
-#define XML_ALLOCATOR_BLOCK_SIZE 1024 * 16 // 16KB
+#define XML_ALLOCATOR_BLOCK_SIZE 1024 * 1024 // 1MB
 typedef struct XmlAllocatorBlock XmlAllocatorBlock;
 typedef struct XmlAllocatorBlock 
 {
